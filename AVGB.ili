@@ -1,0 +1,33 @@
+TRANSFER INTERLIS1;
+
+MODEL AVGB
+
+DOMAIN
+  LKoord = COORD2 2580000.000  1205000.000
+                  2660000.000  1270000.000;
+
+  TOPIC Grundbuch =
+
+    TABLE Grundstueck =
+      Nummer: TEXT*255;
+      Art: (Liegenschaft, Baurecht);
+      Geometrie: AREA WITH (STRAIGHTS) VERTEX LKoord WITHOUT OVERLAPS > 0.05;
+      NO IDENT
+    END Grundstueck;
+    
+    TABLE Eigentuemer =
+      Name: TEXT*255;
+      Grundstueck: -> Grundstueck;
+      IDENT Name;
+    END Eigentuemer;    
+      
+  END Grundbuch.
+
+END AVGB. 
+
+FORMAT FIX WITH LINESIZE = 320, TIDSIZE = 16;
+
+CODE
+  BLANK = DEFAULT, UNDEFINED = DEFAULT, CONTINUE = DEFAULT;
+  TID = ANY;
+END.
