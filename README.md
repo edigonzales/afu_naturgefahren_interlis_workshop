@@ -42,10 +42,10 @@ Befehl zum Anlegen der leeren Datenbanktabellen in der GeoPackage-Datei:
 ```
 java -jar /Users/stefan/apps/ili2gpkg-4.4.1/ili2gpkg-4.4.1.jar --dbfile grundbuch.gpkg --nameByTopic --defaultSrsCode 21781 --strokeArcs --createEnumTabs --models AVGB --modeldir . --schemaimport
 ```
-
+- `--dbfile`: Namen der GeoPackage (lokale Datenbank), die erstellt werden soll.
 - `--nameByTopic`: Steuert die Namen der Tabellen in der Datenbank. Dem Tabellennamen wird der Name des Topics vorangestellt. Muss nicht verwendet werden. Ich kann so aber besser die Übersicht behalten.
 - `--defaultSrsCode 21781`: Wir müssen der Datenbank mitteilen welches Koordinatensystem es verwenden soll. Weil das Naturgefahrenmodell noch in LV03 ist, verwende ich hier ebenfalls LV03 (=21781).
-- `--strokeArcs`: Kreisbogen werden zu kleinen Segmenten umgerechnet resp. in der Datenbank wird ein einfacherer (technischer) Geometrietype verlangt.
+- `--strokeArcs`: Kreisbogen werden zu kleinen Segmenten umgerechnet resp. in der Datenbank wird ein einfacherer (technischer) Geometrietyp verlangt.
 - `--createEnumTabs`: Erstellt für jeden Aufzähltyp (hier `Art`) eine eigene Tabelle mit den Aufzähltypwerten.
 - `--models`: Der Namen des INTERLIS-Datenmodelles.
 - `--modeldir`: Die Url des INTERLIS-Repositories oder des lokalen Verzeichnisses, wo die INTERLIS-Datei gespeichert ist. Falls wir ein offizielles Modell verwenden, das in einem Repository gespeichert ist, ist diese Angabe überflüssig.
