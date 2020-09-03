@@ -60,6 +60,21 @@ Es handelt sich dabei um zwei "Datenlayer" und einen Layer mit den Aufzähltypwe
 
 ![grundbuch02](./images/grundbuch02.png)
 
-Die Tabellen `Grundstueck` und `Eigentuemer` sind gemäss Modell miteinander verknüpft: Jeder Eigentümer ist einem Grundstück zugewiesen. Im QGIS-Layer 
+Die Tabellen `Grundstueck` und `Eigentuemer` sind gemäss Modell miteinander verknüpft: Jeder Eigentümer ist einem Grundstück zugewiesen. Im QGIS-Layer `eigentuemer` ist diese Verbindung das Attribut `grundstueck`, welches den Wert des sogenannten Primary Keys (`T_Id`) des Layers `grundstueck` enthalten muss:
+
+![grundbuch03](./images/grundbuch03.png)
+
+Um die Datenerfassung zu vereinfachen, können die QGIS-Layer mittels einer Relation (_Project -> Properties_) verknüpft werden:
+
+![grundbuch04](./images/grundbuch04.png)
+
+
+
+
+
+
+- **DATEN valididieren**
 
 ## Beispiel 2
+
+- bestehende daten?
