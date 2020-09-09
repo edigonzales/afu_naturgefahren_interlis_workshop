@@ -141,5 +141,38 @@ Oder mit dem [ilivalidator-web-service.](https://geo.so.ch/ilivalidator/) In die
 
 ## Beispiel 2
 
-- bestehende daten?
-- ilivalidator-web-service (mit link auf Doku)
+Im zweiten Beispiel werden wir eine bestehende Naturgefahren-INTERLIS-Datei importieren, einige Daten erfassen und verändern, exportieren und im dem [_ilivalidator-web-service_](https://geo.so.ch/ilivalidator) des Kantons auf die Richtigkeit überprüfen. Der Grundablauf ist identisch wie im Beispiel 1.
+
+Daten importieren:
+
+```
+java -jar /Users/stefan/apps/ili2gpkg-4.4.1/ili2gpkg-4.4.1.jar --dbfile GKSO11_Balsthal.gpkg --defaultSrsCode 21781 --strokeArcs --createEnumTabs --models Naturgefahrenkarte_SO_V11 --doSchemaImport --import GKSO11_Balsthal.itf
+```
+- `--import`: Anstelle von `--schemaimport`, was nur die leeren Tabellen anlegt, importiert `--import` bestehende INTERLIS-Daten in eine GeoPackage-Datei.
+- `--doSchemaImport`: Man muss _ili2gpkg_ zusätzlich mitteilen, dass er vor dem Import die leeren Tabellen anlegt. `--import` macht das nicht automatisch.
+- `--modeldir` muss nicht mehr verwendet werden, weil das Modell in einer [INTERLIS-Modellablage](http://geo.so.ch/models) verfügbar ist 
+
+Bevor man effizient arbeiten kann, müssen wie im Beispiel 1 die Relation(en) (`GKSO11_Balsthal ik_sturz` mit `GKSO11_Balsthal prozessquelle_sturz`) zwischen den Layer hergestellt und die Aufzähltypen im Layer `GKSO11_Balsthal ik_sturz` verknüpft werden. Damit man beim Zuweisen eines Objektes von `ik_sturz` zu `prozessquelle_sturz` weiss, was man miteinander verknüpft, muss in `prozessquelle_sturz` die passende `Column preview` gewählt werden. In diesem Beispiel ist das - für mich - aber auch nichts sprechendes, sondern nur eine Zahl (?). Um das Zuweisen noch komfortabler zu machen, muss bei den Layereinstellungen die Option `On map identification (for geometric layers only)` gewählt werden:
+
+![naturgefahren01](./images/naturgefahren01.png)
+
+Damit kann man nach dem Erfassen eines Objektes in `ik_sturz` das Objekt des Layers `prozessquelle_sturz` mit der Maus auswählen.
+
+![naturgefahren02](./images/naturgefahren02.png)
+
+Die Daten können analog Beispiel 1 exportiert werden:
+
+```
+java -jar /Users/stefan/apps/ili2gpkg-4.4.1/ili2gpkg-4.4.1.jar --dbfile GKSO11_Balsthal.gpkg --models Naturgefahrenkarte_SO_V11 --export GKSO11_Balsthal_export_20200910.itf
+```
+
+Der Export prüft gleichzeitig die Daten gegenüber dem Modell. Weil das Datenmodell ebenfalls in einem INTERLIS-Repository verfügbar ist, kann auch der [_ilivalidator-web-service_](https://geo.so.ch/ilivalidator) des Kantons verwendet werden:
+
+![ilivalidator01](./images/ilivalidator01.png)
+
+![ilivalidator02](./images/ilivalidator02.png)
+
+Eine erfolgreiche Prüfung der Daten wird mit `...validation done:` quittiert. Falls Fehler gefunden werden, steht `...validation failed:` Das Logfile der kann mittels Klick auf den Link angezeigt werden. Weiterführende Dokumentation des _ilivalidator-web-services_ findet man [hier](https://github.com/sogis/ilivalidator-web-service-websocket/blob/master/docs/user-manual-de.md).
+
+![ilivalidator03](./images/ilivalidator03.png)
+
